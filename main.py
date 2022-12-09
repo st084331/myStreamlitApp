@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from deep_translator import GoogleTranslator
 
-model_id = "nitrosocke/Arcane-Diffusion"
+MODEL_ID = "nitrosocke/Arcane-Diffusion"
 
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
