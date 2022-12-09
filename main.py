@@ -11,7 +11,6 @@ MODEL_ID = "nitrosocke/Arcane-Diffusion"
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def init_pipe():
-    # Лаконично и понятно, думаю менять не стоит
     if torch.cuda.is_available():
         pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
         pipe = pipe.to("cuda")
