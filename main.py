@@ -58,34 +58,36 @@ def get_text_from_site(url):
 
     return [0, result_sentence]
 
-st.title('Внимание, розыск в Аркейн!')
 
-if "visibility" not in st.session_state:
-    st.session_state.visibility = "visible"
-    st.session_state.disabled = False
+if __name__ == '__main__':
+    st.title('Внимание, розыск в Аркейн!')
 
-text_input = st.text_input(
-    "Вставьте ссылку из Следственного комитета РФ по городу Москве сюда 👇"
-)
+    if "visibility" not in st.session_state:
+        st.session_state.visibility = "visible"
+        st.session_state.disabled = False
 
-num_inference_steps = st.slider("Число шагов (влияет на скорость работы)", value=50, min_value=1, max_value=800, step=1)
+    text_input = st.text_input(
+        "Вставьте ссылку из Следственного комитета РФ по городу Москве сюда 👇"
+    )
 
-guidance_scale = st.slider("Степень приверженности (больше или меньше фантазии)", value=7.5, min_value=1.1,
-                           max_value=15.0, step=0.1)
+    num_inference_steps = st.slider("Число шагов (влияет на скорость работы)", value=50, min_value=1, max_value=800, step=1)
 
-if st.button("Сгенерировать!"):
+    guidance_scale = st.slider("Степень приверженности (больше или меньше фантазии)", value=7.5, min_value=1.1,
+                               max_value=15.0, step=0.1)
 
-    if text_input != "":
+    if st.button("Сгенерировать!"):
 
-        if validators.url(text_input):
+        if text_input != "":
 
-            text_and_code = get_text_from_site(text_input)
+            if validators.url(text_input):
 
-            if not text_and_code[0]:
-                st.empty()
-                images = generate_arcane(text_and_code[1], num_inference_steps, guidance_scale)
-                st.image(images[0])
+                text_and_code = get_text_from_site(text_input)
+
+                if not text_and_code[0]:
+                    st.empty()
+                    images = generate_arcane(text_and_code[1], num_inference_steps, guidance_scale)
+                    st.image(images[0])
+                else:
+                    st.text(text_and_code[1])
             else:
-                st.text(text_and_code[1])
-        else:
-            st.text("Это не ссылка. Попробуйте вставить ссылку.")
+                st.text("Это не ссылка. Попробуйте вставить ссылку.")
