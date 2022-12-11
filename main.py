@@ -21,11 +21,11 @@ def init_pipe():
     return pipe
 
 
-pipe = init_pipe()
+PIPE = init_pipe()
 
 
 def generate_arcane(text, num_inference_steps=50, guidance_scale=7.5):
-    return pipe(prompt="arcane style, " + text, num_inference_steps=num_inference_steps,
+    return PIPE(prompt="arcane style, " + text, num_inference_steps=num_inference_steps,
                 guidance_scale=guidance_scale).images
 
 
