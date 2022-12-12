@@ -12,8 +12,12 @@ MODEL_ID = "nitrosocke/Arcane-Diffusion"
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def init_pipe():
     if torch.cuda.is_available():
-        pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.float16)
-        pipe = pipe.to("cuda")
+        try:
+            pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.float16)
+            pipe = pipe.to("cuda")
+        except:
+            pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID)
+            pipe = pipe.to("cpu")
     else:
         pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID)
         pipe = pipe.to("cpu")
